@@ -1,5 +1,5 @@
 ﻿
-namespace MCsharp
+namespace MCsharpened
 {
 	internal class Program
 	{
@@ -92,9 +92,9 @@ namespace MCsharp
 
 		public SyntaxToken NextToken()
 		{
-			// numbers
+			// <numbers>
 			// + - * / ( )
-			// whitespace
+			// <whitespace>
 
 			if (_position >= _text.Length)
 				return new SyntaxToken(SyntaxKind.EndOfFileToken, _position, "\0", null);
