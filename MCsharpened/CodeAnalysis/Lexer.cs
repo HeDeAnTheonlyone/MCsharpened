@@ -50,7 +50,7 @@ namespace MCsharpened.CodeAnalysis
 				var text = _text.Substring(start, length);
 				if (!int.TryParse(text, out var value))
 				{
-					_diagnostics.Add($"The number {_text} isn't a valid int32"); // temp solution
+					_diagnostics.Add($"The number {_text} isn't a valid int32");
 				}
 
 				return new SyntaxToken(SyntaxKind.NumberToken, start, text, value);
@@ -68,23 +68,21 @@ namespace MCsharpened.CodeAnalysis
 				return new SyntaxToken(SyntaxKind.WhitespaceToken, start, text, null);
 			}
 
-			if (Current == '+')
-				return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
-
-			else if (Current == '-')
-				return new SyntaxToken(SyntaxKind.MinusToken, _position++, "-", null);
-
-			else if (Current == '*')
-				return new SyntaxToken(SyntaxKind.StarToken, _position++, "*", null);
-
-			else if (Current == '/')
-				return new SyntaxToken(SyntaxKind.SlashToken, _position++, "/", null);
-
-			else if (Current == '(')
-				return new SyntaxToken(SyntaxKind.OpenParenthesisToken, _position++, "(", null);
-
-			else if (Current == ')')
-				return new SyntaxToken(SyntaxKind.ClosedParenthesisToken, _position++, ")", null);
+			switch (Current)
+			{
+				case '+':
+					return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
+				case '-':
+					return new SyntaxToken(SyntaxKind.MinusToken, _position++, "-", null);
+				case '*':
+					return new SyntaxToken(SyntaxKind.StarToken, _position++, "*", null);
+				case '/':
+					return new SyntaxToken(SyntaxKind.SlashToken, _position++, "/", null);
+				case '(':
+					return new SyntaxToken(SyntaxKind.OpenParenthesisToken, _position++, "(", null);
+				case ')':
+					return new SyntaxToken(SyntaxKind.ClosedParenthesisToken, _position++, ")", null);
+			}
 
 			_diagnostics.Add($"ERROR: bad character input: '{Current}'");
 			return new SyntaxToken(SyntaxKind.ErrorToken, _position++, _text.Substring(_position - 1, 1), null);
