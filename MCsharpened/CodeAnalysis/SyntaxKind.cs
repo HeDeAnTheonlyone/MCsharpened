@@ -16,7 +16,7 @@ namespace MCsharpened.CodeAnalysis
 		ClosedParenthesisToken,
 
 		// Expressions
-		NumberExpression,
+		LietralExpression,
 		BinaryExpression,
 		ParenthesizedExpression
 	}
