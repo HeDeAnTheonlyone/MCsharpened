@@ -1,7 +1,7 @@
 ﻿
 namespace MCsharpened.CodeAnalysis
 {
-	sealed class ParenthesizedExpressionSyntax : ExpressionSyntax
+	public sealed class ParenthesizedExpressionSyntax : ExpressionSyntax
 	{
 		public ParenthesizedExpressionSyntax(SyntaxToken openParanthesisToken, ExpressionSyntax expression, SyntaxToken closeParanthesisToken)
 		{

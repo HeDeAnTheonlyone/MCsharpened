@@ -1,18 +1,21 @@
 ﻿
 namespace MCsharpened.CodeAnalysis
 {
-	enum SyntaxKind
+	public enum SyntaxKind
 	{
-		NumberToken,
+		// Tokens
+		ErrorToken,
+		EndOfFileToken,
 		WhitespaceToken,
+		NumberToken,
 		PlusToken,
 		MinusToken,
 		StarToken,
 		SlashToken,
 		OpenParenthesisToken,
 		ClosedParenthesisToken,
-		ErrorToken,
-		EndOfFileToken,
+
+		// Expressions
 		NumberExpression,
 		BinaryExpression,
 		ParenthesizedExpression
