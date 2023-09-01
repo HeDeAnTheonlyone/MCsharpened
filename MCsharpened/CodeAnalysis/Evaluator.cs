@@ -18,7 +18,7 @@ namespace MCsharpened.CodeAnalysis
 		private int EvaluateExpression(ExpressionSyntax node)
 		{
 			// BinaryExpression
-			// Numberexpression
+			// LiteralExpression
 
 			if (node is LiteralExpressionSyntax n)
 				return (int)n.LiteralToken.Value;

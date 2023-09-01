@@ -8,6 +8,8 @@ namespace MCsharpened.CodeAnalysis
 		private List<string> _diagnostics = new List<string>();
 		private int _position;
 
+
+
 		public Parser(string text)
 		{
 			var tokens = new List<SyntaxToken>();
@@ -29,7 +31,11 @@ namespace MCsharpened.CodeAnalysis
 			_diagnostics.AddRange(lexer.Diagnostics);
 		}
 
+
+
 		public IEnumerable<string> Diagnostics => _diagnostics;
+
+
 
 		private SyntaxToken Peek(int offset)
 		{
@@ -40,7 +46,11 @@ namespace MCsharpened.CodeAnalysis
 			return _tokens[index];
 		}
 
+
+
 		private SyntaxToken Current => Peek(0);
+
+
 
 		private SyntaxToken NextToken()
 		{
@@ -48,6 +58,8 @@ namespace MCsharpened.CodeAnalysis
 			_position++;
 			return current;
 		}
+
+
 
 		private SyntaxToken MatchToken(SyntaxKind kind)
 		{
@@ -58,6 +70,8 @@ namespace MCsharpened.CodeAnalysis
 			return new SyntaxToken(kind, Current.Position, null, null);
 		}
 
+
+
 		public SyntaxTree Parse()
 		{
 			var expression = ParseExpression();
@@ -65,40 +79,27 @@ namespace MCsharpened.CodeAnalysis
 			return new SyntaxTree(_diagnostics, expression, endOfFileToken);
 		}
 
-		private ExpressionSyntax ParseExpression()
-		{
-			return ParseTerm();
-		}
 
-		public ExpressionSyntax ParseTerm()
-		{
-			var left = ParseFactor();
 
-			while (Current.Kind == SyntaxKind.PlusToken ||
-				   Current.Kind == SyntaxKind.MinusToken)
-			{
-				var operatorToken = NextToken();
-				var right = ParseFactor();
-				left = new BinaryExpressionSyntax(left, operatorToken, right);
-			}
-
-			return left;
-		}
-
-		public ExpressionSyntax ParseFactor()
+		private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
 		{
 			var left = ParsePrimaryExpression();
 
-			while (Current.Kind == SyntaxKind.StarToken ||
-				   Current.Kind == SyntaxKind.SlashToken)
+			while (true)
 			{
+				var precedence = Current.Kind.GetBinaryOperatorPrecedence();
+				if (precedence <= parentPrecedence)
+					break;
+
 				var operatorToken = NextToken();
-				var right = ParsePrimaryExpression();
+				var right = ParseExpression(precedence);
 				left = new BinaryExpressionSyntax(left, operatorToken, right);
 			}
 
 			return left;
 		}
+
+
 
 		private ExpressionSyntax ParsePrimaryExpression()
 		{
