@@ -1,4 +1,6 @@
 ﻿
+using MCsharpened.CodeAnalysis.Syntax;
+
 namespace MCsharpened.CodeAnalysis
 {
 	internal static class SyntaxFacts

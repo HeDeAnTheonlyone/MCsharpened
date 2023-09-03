@@ -1,8 +1,10 @@
-﻿using MCsharpened.CodeAnalysis;
+﻿
+using MCsharpened.CodeAnalysis;
+using MCsharpened.CodeAnalysis.Syntax;
 
 namespace MCsharpened
 {
-	internal static class Program
+    internal static class Program
 	{
 		private static void Main()
 		{
