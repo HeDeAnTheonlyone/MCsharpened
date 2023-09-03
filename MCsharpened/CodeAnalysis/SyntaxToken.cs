@@ -11,10 +11,14 @@ namespace MCsharpened.CodeAnalysis
 			Value = value;
 		}
 
+
+
 		public override SyntaxKind Kind { get; }
 		public int Position { get; }
 		public string Text { get; }
 		public object Value { get; }
+
+
 
 		public override IEnumerable<SyntaxNode> GetChildren()
 		{

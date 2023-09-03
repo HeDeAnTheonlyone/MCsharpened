@@ -8,8 +8,12 @@ namespace MCsharpened.CodeAnalysis
 			LiteralToken = literalToken;
 		}
 
+
+
 		public override SyntaxKind Kind => SyntaxKind.LietralExpression;
 		public SyntaxToken LiteralToken { get; }
+
+
 
 		public override IEnumerable<SyntaxNode> GetChildren()
 		{

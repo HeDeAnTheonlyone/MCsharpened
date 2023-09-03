@@ -10,10 +10,14 @@ namespace MCsharpened.CodeAnalysis
 			CloseParanthesisToken = closeParanthesisToken;
 		}
 
+
+
 		public override SyntaxKind Kind => SyntaxKind.ParenthesizedExpression;
 		public SyntaxToken OpenParanthesisToken { get; }
 		public ExpressionSyntax Expression { get; }
 		public SyntaxToken CloseParanthesisToken { get; }
+
+
 
 		public override IEnumerable<SyntaxNode> GetChildren()
 		{

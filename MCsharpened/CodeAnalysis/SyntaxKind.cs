@@ -17,6 +17,7 @@ namespace MCsharpened.CodeAnalysis
 
 		// Expressions
 		LietralExpression,
+		UnaryExpression,
 		BinaryExpression,
 		ParenthesizedExpression
 	}

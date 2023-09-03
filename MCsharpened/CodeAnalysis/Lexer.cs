@@ -7,17 +7,25 @@ namespace MCsharpened.CodeAnalysis
 		private int _position;
 		private List<String> _diagnostics = new List<string>();
 
+
+
 		public Lexer(string text)
 		{
 			_text = text;
 		}
 
+		
+		
 		public IEnumerable<string> Diagnostics => _diagnostics;
+
+
 
 		private void Next()
 		{
 			_position++;
 		}
+
+
 
 		private char Current
 		{
@@ -29,6 +37,8 @@ namespace MCsharpened.CodeAnalysis
 				return _text[_position];
 			}
 		}
+
+
 
 		public SyntaxToken NextToken()
 		{

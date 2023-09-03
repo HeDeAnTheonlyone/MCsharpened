@@ -10,10 +10,14 @@ namespace MCsharpened.CodeAnalysis
 			_root = root;
 		}
 
+
+
 		public int Evaluate()
 		{
 			return EvaluateExpression(_root);
 		}
+
+
 
 		private int EvaluateExpression(ExpressionSyntax node)
 		{
@@ -22,6 +26,17 @@ namespace MCsharpened.CodeAnalysis
 
 			if (node is LiteralExpressionSyntax n)
 				return (int)n.LiteralToken.Value;
+
+			if (node is UnaryExpressionSyntax u)
+			{
+				var operand = EvaluateExpression(u.Operand);
+
+				if (u.OperatorToken.Kind == SyntaxKind.PlusToken)
+					return operand;
+
+				if (u.OperatorToken.Kind == SyntaxKind.MinusToken)
+					return -operand;
+			}
 
 			if (node is BinaryExpressionSyntax b)
 			{

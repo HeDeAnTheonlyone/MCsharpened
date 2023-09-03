@@ -83,7 +83,16 @@ namespace MCsharpened.CodeAnalysis
 
 		private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
 		{
-			var left = ParsePrimaryExpression();
+			ExpressionSyntax left;
+			var unaryOperatorPrecedence = Current.Kind.GetUnaryOperatorPrecedence();
+			if (unaryOperatorPrecedence >= parentPrecedence)
+			{
+				var operatorToke = NextToken();
+				var operand = ParseExpression(unaryOperatorPrecedence);
+				left = new UnaryExpressionSyntax(operatorToke, operand);
+			}
+			else
+				left = ParsePrimaryExpression();
 
 			while (true)
 			{
