@@ -87,7 +87,7 @@ namespace MCsharpened.CodeAnalysis
 		{
 			ExpressionSyntax left;
 			var unaryOperatorPrecedence = Current.Kind.GetUnaryOperatorPrecedence();
-			if (unaryOperatorPrecedence >= parentPrecedence)
+			if (unaryOperatorPrecedence > 0 && unaryOperatorPrecedence >= parentPrecedence)
 			{
 				var operatorToke = NextToken();
 				var operand = ParseExpression(unaryOperatorPrecedence);

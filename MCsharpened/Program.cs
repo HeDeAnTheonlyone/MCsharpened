@@ -1,5 +1,6 @@
 ﻿
 using MCsharpened.CodeAnalysis;
+using MCsharpened.CodeAnalysis.Binding;
 using MCsharpened.CodeAnalysis.Syntax;
 
 namespace MCsharpened
@@ -31,6 +32,10 @@ namespace MCsharpened
 				}
 
 				var syntaxTree = SyntaxTree.Parse(line);
+				var binder = new Binder();
+				var boundExpression = binder.BindExpression(syntaxTree.Root);
+
+				var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
 
 				if (showTree)
 				{
@@ -39,9 +44,9 @@ namespace MCsharpened
 					Console.ResetColor();
 				}
 
-				if (!syntaxTree.Diagnostics.Any())
+				if (!diagnostics.Any())
 				{
-					var e = new Evaluator(syntaxTree.Root);
+					var e = new Evaluator(boundExpression);
 					var result = e.Evaluate();
 					Console.WriteLine(result);
 				}
@@ -49,7 +54,7 @@ namespace MCsharpened
 				{
 					Console.ForegroundColor = ConsoleColor.Red;
 
-					foreach (var diagnostics in syntaxTree.Diagnostics)
+					foreach (var diagnostic in diagnostics)
 						Console.WriteLine(diagnostics);
 
 					Console.ResetColor();
